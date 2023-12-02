@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       hotel_rating_star: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       hotel_phonenumber: {
         type: Sequelize.TEXT,

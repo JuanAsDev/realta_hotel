@@ -11,6 +11,10 @@ module.exports = {
       },
       fapho_faci_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "facilities",
+          key: "faci_id",
+        },
       },
 
       fapho_thumbnail_filename: {

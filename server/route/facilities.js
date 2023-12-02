@@ -1,5 +1,5 @@
 const express = require("express");
-const facilitiesRoute = express.Router(); // Ganti "router" dengan "facilitiesRoute"
+const facilitiesRoute = express.Router();
 const facilitiesController = require("../controller/facilitiesController");
 
 facilitiesRoute.post("/create", facilitiesController.createFacility);

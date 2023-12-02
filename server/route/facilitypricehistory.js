@@ -18,5 +18,8 @@ facilityPriceHistoryRoute.delete(
   "/delete/:faph_id",
   facilityPriceHistoryController.deleteFacilityPriceHistory
 );
-
+facilityPriceHistoryRoute.get(
+  "/getfacilitypricehistoriespage",
+  facilityPriceHistoryController.getFacilityPriceHistoriespage
+);
 module.exports = facilityPriceHistoryRoute;

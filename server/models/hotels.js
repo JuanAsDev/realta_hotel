@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true, // Automatically gets converted to SERIAL for postgres
+        autoIncrement: true,
       },
       hotel_name: DataTypes.TEXT,
       hotel_description: DataTypes.TEXT,
-      hotel_rating_star: DataTypes.INTEGER,
+      hotel_rating_star: DataTypes.FLOAT,
       hotel_phonenumber: DataTypes.TEXT,
       hotel_status: DataTypes.BOOLEAN,
       hotel_reason: DataTypes.TEXT,

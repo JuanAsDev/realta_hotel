@@ -54,6 +54,10 @@ module.exports = {
       },
       faci_hotel_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "hotels",
+          key: "hotel_id",
+        },
       },
       createdAt: {
         allowNull: false,

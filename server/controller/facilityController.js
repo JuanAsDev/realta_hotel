@@ -2,16 +2,11 @@ const { facility_photos, facilities } = require("../models");
 
 const createFacilityPhotos = async (req, res) => {
   try {
-    const {
-      fapho_faci_id,
-      fapho_thumbnail_filename,
-      fapho_primary,
-      fapho_modified_date,
-    } = req.body;
+    const { fapho_faci_id, fapho_primary, fapho_modified_date } = req.body;
 
     const newFacilityPhoto = await facility_photos.create({
       fapho_faci_id,
-      fapho_thumbnail_filename,
+      fapho_thumbnail_filename: req.file.filename,
       fapho_photo_filename: req.file.originalname,
       fapho_primary,
       fapho_modified_date,
@@ -27,16 +22,29 @@ const createFacilityPhotos = async (req, res) => {
 
     res.json(newFacilityPhoto);
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: "gagal upload" });
   }
 };
 
 const getFacilityPhotos = async (req, res) => {
   try {
-    const facilityPhotos = await facility_photos.findAll({
-      include: [facilities],
+    const page = req.query.page || 1;
+    const limit = 3;
+
+    const { count, rows: facilityPhotos } =
+      await facility_photos.findAndCountAll({
+        include: [facilities],
+        limit: limit,
+        offset: (page - 1) * limit,
+      });
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.json({
+      facilityPhotos,
+      totalPages,
+      currentPage: parseInt(page),
     });
-    res.json(facilityPhotos);
   } catch (error) {
     res.status(500).json({ error: "Gagal mengambil Facility Photos" });
   }

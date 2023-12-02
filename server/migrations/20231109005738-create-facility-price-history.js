@@ -5,6 +5,10 @@ module.exports = {
     await queryInterface.createTable("facility_price_histories", {
       faph_faci_id: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "facilities",
+          key: "faci_id",
+        },
       },
 
       faph_id: {

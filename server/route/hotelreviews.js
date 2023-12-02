@@ -13,4 +13,9 @@ hotelReviewRoute.delete(
   hotelReviewController.deleteHotelReview
 );
 
+hotelReviewRoute.get(
+  "/hotelreviewspagination",
+  hotelReviewController.getHotelReviewsPagination
+);
+
 module.exports = hotelReviewRoute;

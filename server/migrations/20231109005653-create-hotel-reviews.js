@@ -24,6 +24,11 @@ module.exports = {
       },
       hore_hotel_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "hotels",
+          key: "hotel_id",
+        },
       },
       createdAt: {
         allowNull: false,

@@ -44,9 +44,34 @@ const deleteHotelReview = async (req, res) => {
   }
 };
 
+const getHotelReviewsPagination = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 3;
+  try {
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await hotel_reviews.findAndCountAll({
+      offset,
+      limit,
+    });
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.json({
+      totalPages,
+      currentPage: page,
+      totalReviews: count,
+      reviews: rows,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Gagal mengambil data ulasan hotel" });
+  }
+};
+
 module.exports = {
   createHotelReview,
   getHotelReviews,
   updateHotelReview,
   deleteHotelReview,
+  getHotelReviewsPagination,
 };

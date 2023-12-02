@@ -63,10 +63,37 @@ const deleteFacilityPriceHistory = async (req, res) => {
     res.status(500).json({ error: "Gagal menghapus riwayat harga fasilitas." });
   }
 };
+const getFacilityPriceHistoriespage = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 2;
+    const offset = (page - 1) * limit;
+    const { count, rows } = await facility_price_history.findAndCountAll({
+      limit,
+      offset,
+      order: [["faph_id", "ASC"]],
+    });
+    console.log("Rows retrieved:", rows);
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.status(200).json({
+      totalPages,
+      currentPage: page,
+      facilityPriceHistories: rows,
+    });
+  } catch (error) {
+    console.log("error dari sini", error.message),
+      res.status(500).json({
+        error: "Gagal mengambil riwayat harga fasilitas." + error.message,
+      });
+  }
+};
 
 module.exports = {
   createFacilityPriceHistory,
   getFacilityPriceHistories,
   updateFacilityPriceHistory,
   deleteFacilityPriceHistory,
+  getFacilityPriceHistoriespage,
 };
